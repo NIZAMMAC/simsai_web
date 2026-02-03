@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("STUDENT") // STUDENT or STAFF
+  createdAt DateTime @default(now())
+  
+  submissions Submission[]
+}
+
+model Submission {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  fileUrl     String
+  fileType    String   // IMAGE or VIDEO
+  status      String   @default("PENDING") // PENDING, APPROVED, REJECTED
+  feedback    String?
+  createdAt   DateTime @default(now())
+  
+  studentId   String
+  student     User     @relation(fields: [studentId], references: [id])
+}
