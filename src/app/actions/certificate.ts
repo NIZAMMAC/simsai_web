@@ -1,8 +1,7 @@
 'use server';
 
 import { prisma } from '@/lib/db';
-import { writeFile, mkdir } from 'fs/promises';
-import { join } from 'path';
+import { put, del } from '@vercel/blob';
 import { revalidatePath } from 'next/cache';
 
 export async function uploadCertificate(submissionId: string, formData: FormData) {
@@ -31,29 +30,24 @@ export async function uploadCertificate(submissionId: string, formData: FormData
             return { error: 'Can only upload certificates for approved submissions' };
         }
 
-        // Create certificates directory if it doesn't exist
-        const certificatesDir = join(process.cwd(), 'uploads', 'certificates');
-        await mkdir(certificatesDir, { recursive: true });
+        // Generate filename/path
+        const filename = `certificates/${submissionId}-certificate-${Date.now()}.pdf`;
 
-        // Generate filename
-        const filename = `${submissionId}-certificate.pdf`;
-        const filepath = join(certificatesDir, filename);
+        // Upload to Vercel Blob
+        const blob = await put(filename, file, {
+            access: 'public',
+        });
 
-        // Convert file to buffer and save
-        const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-        await writeFile(filepath, buffer);
-
-        // Update submission with certificate filename
+        // Update submission with certificate URL
         await prisma.submission.update({
             where: { id: submissionId },
-            data: { certificateFile: filename }
+            data: { certificateFile: blob.url } // Storing URL primarily
         });
 
         revalidatePath('/staff');
         revalidatePath('/dashboard');
 
-        return { success: true, filename };
+        return { success: true, filename: blob.url };
     } catch (error) {
         console.error('Certificate upload error:', error);
         return { error: 'Failed to upload certificate' };
@@ -62,6 +56,18 @@ export async function uploadCertificate(submissionId: string, formData: FormData
 
 export async function removeCertificate(submissionId: string) {
     try {
+        const submission = await prisma.submission.findUnique({
+            where: { id: submissionId }
+        });
+
+        if (submission?.certificateFile) {
+            try {
+                await del(submission.certificateFile);
+            } catch (error) {
+                console.error('Error deleting blob:', error);
+            }
+        }
+
         await prisma.submission.update({
             where: { id: submissionId },
             data: { certificateFile: null }

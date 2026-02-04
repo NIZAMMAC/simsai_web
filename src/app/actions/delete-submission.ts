@@ -3,8 +3,7 @@
 import { requireUser } from '@/lib/session';
 import { prisma } from '@/lib/db';
 import { revalidatePath } from 'next/cache';
-import { unlink } from 'fs/promises';
-import { join } from 'path';
+import { del } from '@vercel/blob';
 
 export async function deleteSubmission(submissionId: string) {
     try {
@@ -23,12 +22,10 @@ export async function deleteSubmission(submissionId: string) {
             return { error: 'Unauthorized' };
         }
 
-        // Delete the physical file
-        const uploadsDir = join(process.cwd(), 'uploads');
-        const filename = submission.fileUrl.split('/').pop();
-        if (filename) {
+        // Delete the file from Vercel Blob
+        if (submission.fileUrl) {
             try {
-                await unlink(join(uploadsDir, filename));
+                await del(submission.fileUrl);
             } catch (err) {
                 console.error('Failed to delete file:', err);
                 // Continue even if file deletion fails

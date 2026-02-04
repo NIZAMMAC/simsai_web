@@ -83,11 +83,11 @@ export function CertificateUpload({ submissionId, status, certificateFile }: Cer
                                 ✅ Certificate Uploaded
                             </div>
                             <div style={{ fontSize: '0.75rem', opacity: 0.9 }}>
-                                {certificateFile}
+                                Certificate File
                             </div>
                         </div>
                         <a
-                            href={`/uploads/certificates/${certificateFile}`}
+                            href={certificateFile || '#'}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="btn"

@@ -2,8 +2,7 @@
 
 import { prisma } from '@/lib/db';
 import { requireUser } from '@/lib/session';
-import { writeFile, mkdir } from 'fs/promises';
-import { join } from 'path';
+import { put, del } from '@vercel/blob';
 import { revalidatePath } from 'next/cache';
 
 export async function uploadFile(formData: FormData) {
@@ -36,23 +35,14 @@ export async function uploadFile(formData: FormData) {
             return { error: 'Only images and videos are allowed' };
         }
 
-        const bytes = await file.arrayBuffer();
-        const buffer = Buffer.from(bytes);
-
-        // Creates/ensures upload dir exists
-        const uploadDir = join(process.cwd(), 'uploads');
-        try {
-            await mkdir(uploadDir, { recursive: true });
-        } catch (e) {
-            console.error('Error creating directory', e);
-        }
-
         const filename = `${Date.now()}-${file.name.replace(/\s/g, '_')}`;
-        const filepath = join(uploadDir, filename);
 
-        await writeFile(filepath, buffer);
+        // Upload to Vercel Blob
+        const blob = await put(filename, file, {
+            access: 'public',
+        });
 
-        fileUrl = `/uploads/${filename}`;
+        fileUrl = blob.url;
         fileType = isVideo ? 'VIDEO' : 'IMAGE';
 
         // If editing, delete old file
@@ -62,11 +52,8 @@ export async function uploadFile(formData: FormData) {
             });
             if (oldSubmission && oldSubmission.studentId === sessionUserId) {
                 try {
-                    const { unlink } = await import('fs/promises');
-                    const oldFilename = oldSubmission.fileUrl.split('/').pop();
-                    if (oldFilename) {
-                        await unlink(join(uploadDir, oldFilename));
-                    }
+                    // Start of blob url or just try deleting
+                    await del(oldSubmission.fileUrl);
                 } catch (err) {
                     console.error('Failed to delete old file:', err);
                 }
