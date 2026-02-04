@@ -15,7 +15,8 @@ export function CertificateUpload({ submissionId, status, certificateFile }: Cer
 
     const handleUpload = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const formData = new FormData(e.currentTarget);
+        const form = e.currentTarget;
+        const formData = new FormData(form);
 
         startTransition(async () => {
             const result = await uploadCertificate(submissionId, formData);
@@ -23,7 +24,7 @@ export function CertificateUpload({ submissionId, status, certificateFile }: Cer
                 setMessage(result.error);
             } else {
                 setMessage('Certificate uploaded successfully!');
-                e.currentTarget.reset();
+                form.reset();
                 setTimeout(() => setMessage(''), 3000);
             }
         });

@@ -131,7 +131,7 @@ export function StaffDashboardClient({ submissions }: StaffDashboardClientProps)
                             <div>
                                 <h3 style={{ fontSize: '1.25rem', marginBottom: '0.25rem' }}>{sub.title}</h3>
                                 <p style={{ fontSize: '0.875rem', color: '#666', margin: 0 }}>
-                                    {new Date(sub.createdAt).toLocaleDateString()}
+                                    {new Date(sub.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' })}
                                 </p>
                             </div>
                             <span style={{
