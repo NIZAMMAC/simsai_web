@@ -66,20 +66,20 @@ export function StaffDashboardClient({ submissions }: StaffDashboardClientProps)
     return (
         <>
             {/* Search and Filter Bar */}
-            <div style={{ maxWidth: '1200px', margin: '0 auto 2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            <div style={{ maxWidth: '1200px', margin: '0 auto 2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap', padding: '0 1rem' }}>
                 <input
                     type="text"
                     placeholder="🔍 Search by student name, email, or project..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="input"
-                    style={{ flex: '1 1 250px', fontSize: '1rem' }}
+                    style={{ flex: '1 1 100%', minWidth: '250px', fontSize: '1rem' }}
                 />
                 <select
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value as any)}
                     className="input"
-                    style={{ fontSize: '1rem', minWidth: '140px' }}
+                    style={{ fontSize: '1rem', flex: '1 1 140px' }}
                 >
                     <option value="ALL">All Status</option>
                     <option value="PENDING">Pending</option>
@@ -90,7 +90,7 @@ export function StaffDashboardClient({ submissions }: StaffDashboardClientProps)
                     value={courseTypeFilter}
                     onChange={(e) => setCourseTypeFilter(e.target.value as any)}
                     className="input"
-                    style={{ fontSize: '1rem', minWidth: '140px' }}
+                    style={{ fontSize: '1rem', flex: '1 1 140px' }}
                 >
                     <option value="ALL">All Courses</option>
                     <option value="BTECH">B.Tech</option>
@@ -100,7 +100,7 @@ export function StaffDashboardClient({ submissions }: StaffDashboardClientProps)
                     value={departmentFilter}
                     onChange={(e) => setDepartmentFilter(e.target.value)}
                     className="input"
-                    style={{ fontSize: '1rem', minWidth: '160px' }}
+                    style={{ fontSize: '1rem', flex: '1 1 160px' }}
                 >
                     <option value="ALL">All Departments</option>
                     {DEPARTMENTS.map(dept => (
@@ -111,7 +111,7 @@ export function StaffDashboardClient({ submissions }: StaffDashboardClientProps)
                     value={semesterFilter}
                     onChange={(e) => setSemesterFilter(e.target.value)}
                     className="input"
-                    style={{ fontSize: '1rem', minWidth: '120px' }}
+                    style={{ fontSize: '1rem', flex: '1 1 120px' }}
                 >
                     <option value="ALL">All Semesters</option>
                     {getSemesterOptions().map(sem => (
@@ -121,7 +121,7 @@ export function StaffDashboardClient({ submissions }: StaffDashboardClientProps)
             </div>
 
             {/* Submissions Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(380px, 1fr))', gap: '2rem' }}>
+            <div className="grid-responsive">
                 {filteredSubmissions.map((sub) => (
                     <div key={sub.id} className="card" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                         {/* Header */}

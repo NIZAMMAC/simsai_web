@@ -4,17 +4,17 @@ import './globals.css';
 export default function Home() {
   return (
     <div className="container" style={{ paddingTop: '6rem', textAlign: 'center' }}>
-      <h1 className="branding-logo" style={{ fontSize: '7rem', marginBottom: '2rem' }}>
+      <h1 className="branding-logo text-responsive-logo" style={{ marginBottom: '2rem' }}>
         <span className="text-sims">SIMS</span> <span className="text-ai">AI</span>
       </h1>
-      <p style={{ marginTop: '1rem', color: '#666', fontSize: '2rem', fontWeight: 500 }}>
+      <p className="text-responsive-tagline">
         Secure platform for student project submissions.
       </p>
 
-      <div style={{ marginTop: '3rem', display: 'flex', gap: '1.5rem', justifyContent: 'center' }}>
+      <div className="btn-responsive-container">
         <Link href="/login" className="btn-3d" style={{
-          fontSize: '1.5rem',
-          padding: '1.25rem 3rem',
+          fontSize: '1.25rem',
+          padding: '1rem 2rem',
           background: 'linear-gradient(145deg, #7476ff, #5254d9)',
           color: '#fff',
           border: 'none',
@@ -27,13 +27,15 @@ export default function Home() {
           opacity: 0.7,
           boxShadow: '0 8px 15px rgba(99, 102, 241, 0.3), 0 3px 6px rgba(99, 102, 241, 0.2), inset 0 -3px 0 rgba(0, 0, 0, 0.2)',
           transform: 'perspective(500px) rotateX(5deg)',
-          transition: 'all 0.3s ease'
+          transition: 'all 0.3s ease',
+          width: '100%',
+          maxWidth: '200px'
         }}>
           Login
         </Link>
         <Link href="/signup" className="btn-3d" style={{
-          fontSize: '1.5rem',
-          padding: '1.25rem 3rem',
+          fontSize: '1.25rem',
+          padding: '1rem 2rem',
           background: 'linear-gradient(145deg, var(--electric-blue), var(--reddish-pink))',
           color: '#fff',
           border: 'none',
@@ -47,7 +49,9 @@ export default function Home() {
           opacity: 0.7,
           boxShadow: '0 8px 15px rgba(255, 0, 85, 0.3), 0 3px 6px rgba(41, 54, 245, 0.2), inset 0 -3px 0 rgba(0, 0, 0, 0.2)',
           transform: 'perspective(500px) rotateX(5deg)',
-          transition: 'all 0.3s ease'
+          transition: 'all 0.3s ease',
+          width: '100%',
+          maxWidth: '200px'
         }}>
           Sign Up ✨
         </Link>

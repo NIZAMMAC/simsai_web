@@ -40,7 +40,7 @@ export function DashboardContent({ user }: DashboardContentProps) {
     };
 
     return (
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 1rem' }}>
             <div className="card">
                 {/* Upload Section */}
                 <section style={{ marginBottom: '2rem' }}>

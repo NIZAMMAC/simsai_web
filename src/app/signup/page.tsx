@@ -22,8 +22,8 @@ export default function SignupPage() {
 
     return (
         <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', padding: '2rem 1rem' }}>
-            <div className="card" style={{ width: '100%', maxWidth: '500px', padding: '2.5rem' }}>
-                <h1 className="branding-logo" style={{ fontSize: '3rem', marginBottom: '1rem', textAlign: 'center' }}>
+            <div className="card" style={{ width: '100%', maxWidth: '500px', padding: '2rem 1.5rem' }}>
+                <h1 className="branding-logo text-responsive-logo" style={{ marginBottom: '1rem', textAlign: 'center' }}>
                     <span className="text-sims">SIMS</span> <span className="text-ai">AI</span>
                 </h1>
                 <h2 style={{ marginBottom: '2rem', textAlign: 'center', fontSize: '1.5rem', fontWeight: 500 }}>Student Sign Up</h2>

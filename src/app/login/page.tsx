@@ -9,9 +9,9 @@ export default function LoginPage() {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
-        <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
-            <div className="card" style={{ width: '100%', maxWidth: '600px', padding: '3rem' }}>
-                <h1 className="branding-logo" style={{ fontSize: '4rem', marginBottom: '1.5rem', textAlign: 'center' }}>
+        <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', padding: '1rem' }}>
+            <div className="card" style={{ width: '100%', maxWidth: '500px', padding: '2rem 1.5rem' }}>
+                <h1 className="branding-logo text-responsive-logo" style={{ marginBottom: '1.5rem', textAlign: 'center' }}>
                     <span className="text-sims">SIMS</span> <span className="text-ai">AI</span>
                 </h1>
                 <h2 style={{ marginBottom: '2rem', textAlign: 'center', fontSize: '2rem', fontWeight: 500 }}>Login</h2>

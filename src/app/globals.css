@@ -204,6 +204,62 @@ a:hover {
     border-radius: 4px;
 }
 
-::-webkit-scrollbar-thumb:hover {
+::webkit-scrollbar-thumb:hover {
     background: #a3a3a3;
+}
+
+/* Responsive Utilities */
+.text-responsive-logo {
+    font-size: 3.5rem;
+    /* Mobile default */
+}
+
+.text-responsive-tagline {
+    font-size: 1.25rem;
+    /* Mobile default */
+    font-weight: 500;
+    color: #666;
+    margin-top: 1rem;
+}
+
+.btn-responsive-container {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+    .text-responsive-logo {
+        font-size: 5rem;
+    }
+
+    .text-responsive-tagline {
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .text-responsive-logo {
+        font-size: 7rem;
+    }
+
+    .text-responsive-tagline {
+        font-size: 2rem;
+    }
+}
+
+.grid-responsive {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+    .grid-responsive {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+    }
 }
