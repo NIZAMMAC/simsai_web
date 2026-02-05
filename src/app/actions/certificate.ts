@@ -6,14 +6,22 @@ import { revalidatePath } from 'next/cache';
 
 export async function uploadCertificate(submissionId: string, formData: FormData) {
     try {
+        if (!process.env.BLOB_READ_WRITE_TOKEN) {
+            console.error('Missing BLOB_READ_WRITE_TOKEN');
+            return { error: 'Server storage not configured (Missing Blob Token)' };
+        }
+
         // Get the file from form data
         const file = formData.get('certificate') as File;
         if (!file) {
             return { error: 'No file provided' };
         }
 
+        console.log('Uploading file:', file.name, 'Type:', file.type, 'Size:', file.size);
+
         // Validate file type (PDF only)
-        if (!file.type.includes('pdf')) {
+        // Relaxed check for mobile compatibility
+        if (!file.type.includes('pdf') && !file.name.toLowerCase().endsWith('.pdf')) {
             return { error: 'Only PDF files are allowed' };
         }
 
