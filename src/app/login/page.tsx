@@ -1,11 +1,12 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
 import { login } from '@/app/actions/auth';
 import Link from 'next/link';
 
 export default function LoginPage() {
     const [state, action, isPending] = useActionState(login, { error: '' });
+    const [showPassword, setShowPassword] = useState(false);
 
     return (
         <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
@@ -23,7 +24,35 @@ export default function LoginPage() {
 
                     <div>
                         <label htmlFor="password" style={{ display: 'block', marginBottom: '0.5rem', fontSize: '1.125rem', fontWeight: 500 }}>Password</label>
-                        <input type="password" id="password" name="password" className="input" placeholder="••••••••" required />
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            id="password"
+                            name="password"
+                            className="input"
+                            placeholder="••••••••"
+                            required
+                        />
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.75rem' }}>
+                            <input
+                                type="checkbox"
+                                id="showPassword"
+                                checked={showPassword}
+                                onChange={(e) => setShowPassword(e.target.checked)}
+                                style={{
+                                    width: '1.25rem',
+                                    height: '1.25rem',
+                                    cursor: 'pointer'
+                                }}
+                            />
+                            <label htmlFor="showPassword" style={{ cursor: 'pointer', fontSize: '1rem', color: '#666' }}>
+                                Show Password
+                            </label>
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '0.25rem' }}>
+                            <Link href="/forgot-password" style={{ color: 'var(--primary)', fontSize: '0.875rem' }}>
+                                Forgot Password?
+                            </Link>
+                        </div>
                     </div>
 
                     {state?.error && (

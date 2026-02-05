@@ -7,7 +7,7 @@ export default async function StaffDashboardPage() {
     const userId = await requireUser();
     const user = await prisma.user.findUnique({ where: { id: userId } });
 
-    if (user?.role !== 'STAFF') {
+    if (user?.role !== 'STAFF' && user?.role !== 'MASTER_ADMIN') {
         return <div>Access Denied. Staff only area.</div>;
     }
 
@@ -43,7 +43,17 @@ export default async function StaffDashboardPage() {
                 <h2 style={{ fontSize: '2rem', fontWeight: 500, color: 'var(--foreground)', marginBottom: '0.5rem' }}>
                     Staff Dashboard
                 </h2>
-                <p style={{ color: '#666', fontSize: '1.25rem' }}>Admin Panel - Verify Student Work</p>
+                <p style={{ color: '#666', fontSize: '1.25rem', marginBottom: '1.5rem' }}>Admin Panel - Verify Student Work</p>
+
+                {user?.role === 'MASTER_ADMIN' && (
+                    <a href="/staff/users" className="btn btn-outline" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginRight: '1rem' }}>
+                        👥 Manage Staff Accounts
+                    </a>
+                )}
+
+                <a href="/staff/requests" className="btn btn-outline" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', borderColor: '#f59e0b', color: '#d97706', background: '#fffbeb' }}>
+                    🔑 Password Requests
+                </a>
             </header>
 
 

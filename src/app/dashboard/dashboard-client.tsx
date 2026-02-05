@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { UploadForm } from './upload-form';
 import { FileActions } from './file-actions';
+import { ChangePasswordForm } from './change-password-form';
 
 interface DashboardContentProps {
     user: {
@@ -97,7 +98,7 @@ export function DashboardContent({ user }: DashboardContentProps) {
                                                     </div>
                                                 </div>
                                                 <a
-                                                    href={`/uploads/certificates/${sub.certificateFile}`}
+                                                    href={sub.certificateFile}
                                                     download
                                                     className="btn"
                                                     style={{
@@ -119,7 +120,13 @@ export function DashboardContent({ user }: DashboardContentProps) {
                         )}
                     </div>
                 </section>
+
+                {/* Check if user is logged in (implicit) and show settings */}
+                <div style={{ marginTop: '2rem', paddingTop: '2rem', borderTop: '1px solid #e5e7eb' }}>
+                    <ChangePasswordForm />
+                </div>
             </div>
         </div>
     );
 }
+

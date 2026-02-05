@@ -168,7 +168,7 @@ export function StaffDashboardClient({ submissions }: StaffDashboardClientProps)
                                 fontWeight: 600,
                                 color: '#fff'
                             }}>
-                                {sub.student.name[0].toUpperCase()}
+                                {(sub.student.name && sub.student.name.length > 0) ? sub.student.name[0].toUpperCase() : '?'}
                             </div>
                             <div style={{ flex: 1 }}>
                                 <p style={{ fontSize: '0.95rem', fontWeight: 500, margin: 0 }}>{sub.student.name}</p>

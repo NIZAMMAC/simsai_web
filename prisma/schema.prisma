@@ -5,7 +5,7 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model User {
@@ -13,11 +13,12 @@ model User {
   email       String      @unique
   password    String
   name        String
-  role        String      @default("STUDENT") // STUDENT or STAFF
+  role        String      @default("STUDENT") // STUDENT, STAFF, or MASTER_ADMIN
   courseType  String?     // BTECH or POLYTECHNIC (only for students)
   department  String?     // COMPUTER_SCIENCE, CIVIL, MECHANICAL, EEE, AI, AUTOMOBILE (only for students)
   semester    Int?        // 1-8 for BTECH, 1-6 for POLYTECHNIC (only for students)
   createdAt   DateTime    @default(now())
+  resetRequestedAt DateTime? // Track when password reset was requested
   
   submissions Submission[]
 }

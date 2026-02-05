@@ -7,9 +7,9 @@ import { revalidatePath } from 'next/cache';
 export async function verifySubmission(submissionId: string, status: 'APPROVED' | 'REJECTED', feedback?: string) {
     const userId = await requireUser();
 
-    // Verify user is staff
+    // Verify user is staff or admin
     const user = await prisma.user.findUnique({ where: { id: userId } });
-    if (user?.role !== 'STAFF') {
+    if (user?.role !== 'STAFF' && user?.role !== 'MASTER_ADMIN') {
         return { error: 'Unauthorized' };
     }
 

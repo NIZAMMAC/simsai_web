@@ -4,21 +4,19 @@ import * as bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function main() {
-    // Reset admin password
-    const hashedPassword = await bcrypt.hash('admin', 10);
+    // Set final admin password
+    const hashedPassword = await bcrypt.hash('HADImonu1$', 10);
 
     await prisma.user.update({
         where: { email: 'admin@simsai.com' },
         data: {
             password: hashedPassword,
-            name: 'Admin Staff',
-            role: 'STAFF'
         }
     });
 
-    console.log('✅ Admin password reset to: admin');
+    console.log('✅ Admin password updated');
     console.log('📧 Email: admin@simsai.com');
-    console.log('🔑 Password: admin');
+    console.log('🔑 Password: HADImonu1$');
 }
 
 main()
